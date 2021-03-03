@@ -1,12 +1,14 @@
-apiVersion: "spec.keptn.sh/0.2.0"
+apiVersion: spec.keptn.sh/0.2.0
 kind: "Shipyard"
 metadata:
-  name: "shipyard-order"
+  name: "shipyard-keptnorders"
 spec:
   stages:
-    - name: "production"
+    - name: "staging"
       sequences:
         - name: "delivery"
+          triggers:
+            - "dev.delivery.finished"
           tasks:
             - name: "deployment"
               properties:
@@ -16,3 +18,15 @@ spec:
                 teststrategy: "performance"
             - name: "evaluation"
             - name: "release"
+
+    - name: "production"
+      sequences:
+        - name: "delivery"
+          triggers:
+            - "staging.delivery.finished"
+          tasks:
+            - name: "deployment"
+              properties:
+                deploymentstrategy: "blue_green_service"
+            - name: "release"            
+            
