@@ -7,12 +7,10 @@ spec:
     - name: "staging"
       sequences:
         - name: "delivery"
-          triggers:
-            - "dev.delivery.finished"
           tasks:
             - name: "deployment"
               properties:
-                deploymentstrategy: "blue_green_service"
+                deploymentstrategy: "direct"
             - name: "test"
               properties:
                 teststrategy: "performance"
@@ -22,11 +20,18 @@ spec:
     - name: "production"
       sequences:
         - name: "delivery"
-          triggers:
-            - "staging.delivery.finished"
+          triggeredOn:
+            - event: "staging.delivery.finished"
           tasks:
             - name: "deployment"
               properties:
                 deploymentstrategy: "blue_green_service"
+            - name: "test"
+              properties:
+                teststrategy: "performance"                
+            - name: "approval"
+              properties:
+                pass: "automatic"
+                warning: "manual"    
             - name: "release"            
             
