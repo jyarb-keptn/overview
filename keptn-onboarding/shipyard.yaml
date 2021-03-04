@@ -28,7 +28,8 @@ spec:
                 deploymentstrategy: "blue_green_service"
             - name: "test"
               properties:
-                teststrategy: "performance"                
+                teststrategy: "performance"
+            - name: "evaluation"                    
             - name: "approval"
               properties:
                 pass: "automatic"
