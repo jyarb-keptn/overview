@@ -90,6 +90,6 @@ createRequestAttribute "LSN"
 createRequestAttribute "LTN"
 
 ###########################################################################
-# fourth we create LTN
+# fourth we create SI
 ###########################################################################
 createRequestAttribute "SI"
