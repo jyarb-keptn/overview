@@ -80,16 +80,19 @@ function createRequestAttribute() {
 createRequestAttribute "TSN"
 
 ###########################################################################
-# Second we create LSN
+
+# second we create LSN
 ###########################################################################
 createRequestAttribute "LSN"
 
 ###########################################################################
-# Third we create LTN
+
+# third we create LTN
 ###########################################################################
 createRequestAttribute "LTN"
 
 ###########################################################################
-# Fourth we create LTN
+
+# fourth we create SI
 ###########################################################################
 createRequestAttribute "SI"
