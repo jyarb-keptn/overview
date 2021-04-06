@@ -1,0 +1,103 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-secret
+type: Opaque
+data:
+#echo "plain_value" | base64
+# ET_MONGO_AUTH_DB: "admin"
+  ET_MONGO_AUTH_DB: YWRtaW4K
+# ET_DATABASE_USER: "etAdmin"
+  ET_DATABASE_USER: ZXRBZG1pbgo=
+# ET_DATABASE_PASSWORD: "adminadmin"
+  ET_DATABASE_PASSWORD: YWRtaW5hZG1pbgo=
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  CATALINA_OPTS: "-Dconfig.apmServerDefault=APM -Djava.security.egd=file:/dev/./urandom"
+  ET_DATABASE_LOCATION: "easytravel-mongodb:27017"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: easytravel-backend  
+  labels:
+    app: easytravel-backend   
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: easytravel-backend 
+  template:
+    metadata:
+      labels:
+        app: easytravel-backend         
+        app.kubernetes.io/name: {{ .Values.keptn.service }}
+        app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
+        app.kubernetes.io/component: api
+        app.kubernetes.io/part-of: "{{ .Values.keptn.project }}"
+        app.kubernetes.io/managed-by: Keptn
+        app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }}        
+    spec:
+      containers:
+      - name: easytravel-backend
+        image: "{{ .Values.image }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        - containerPort: 8091
+        - containerPort: 8280                
+        envFrom:
+          - configMapRef:
+              name: backend-config
+#          - secretRef:
+#              name: backend-secret
+        env:
+          - name: ET_MONGO_AUTH_DB
+            value: "admin"
+          - name: ET_DATABASE_USER
+            value: "etAdmin"
+          - name: ET_DATABASE_PASSWORD
+            value: "adminadmin"  
+          - name: DT_CUSTOM_PROP
+            value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: "metadata.name"
+          - name: DEPLOYMENT_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: "metadata.labels['deployment']"
+          - name: CONTAINER_IMAGE
+            value: "{{ .Values.image }}"
+          - name: KEPTN_PROJECT
+            value: "{{ .Values.keptn.project }}"
+          - name: KEPTN_STAGE
+            value: "{{ .Values.keptn.stage }}"
+          - name: KEPTN_SERVICE
+            value: "{{ .Values.keptn.service }}"
+          - name: KEPTN_DEPLOYMENT
+            value: "{{ .Values.keptn.deployment }}"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 90
+          periodSeconds: 10
+          timeoutSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 90
+          periodSeconds: 10
+          timeoutSeconds: 15

@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: easytravel-mongodb
+  labels:  
+    app:  easytravel-mongodb
+spec:
+  ports:
+  - name: {{ .Values.service.name }}
+    port: {{ .Values.service.externalPort }}
+    protocol: TCP
+    targetPort: {{ .Values.service.internalPort }}
+  - name: "28017"
+    port: 28017
+    protocol: TCP
+    targetPort: 28017
+  selector:
+    app: easytravel-mongodb
+  type: ClusterIP      
