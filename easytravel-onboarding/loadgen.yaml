@@ -23,7 +23,7 @@ spec:
       containers:
       - env:
         - name: ET_FRONTEND_URL
-          value: http://easytravel-frontend.easytravel-staging.192.168.3.91.nip.io:80
+          value: http://easytravel-frontend.easytravel-staging.domain.placeholder:80
         - name: ET_PROBLEMS
           value: BadCacheSynchronization,CPULoad,DatabaseCleanup,DatabaseSlowdown,FetchSizeTooSmall,JourneySearchError404,JourneySearchError500,LoginProblems,MobileErrors,TravellersOptionBox
         image: dynatrace/easytravel-loadgen:latest
