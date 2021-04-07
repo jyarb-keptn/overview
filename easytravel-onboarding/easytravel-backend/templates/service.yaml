@@ -11,10 +11,6 @@ spec:
     port: {{ .Values.service.externalPort }}
     protocol: TCP
     targetPort: {{ .Values.service.internalPort }}
-  - name: rest  
-    port: 8091
-    protocol: TCP
-    targetPort: 8091
   selector:
     app: easytravel-backend
   type: ClusterIP  
