@@ -19,4 +19,5 @@ fi
 
 cat $yaml.yaml | sed 's~domain.placeholder~'"$DOMAIN"'~' > ./gen/$yaml.yaml
 
+kubectl create namespace loadgen
 kubectl apply -f gen/$yaml.yaml -n loadgen --record
