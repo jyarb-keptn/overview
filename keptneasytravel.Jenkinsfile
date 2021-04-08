@@ -28,7 +28,7 @@ pipeline {
         	stage('Trigger ${params.Service3}') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-frontend" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image3}"
+        			echo "Progressive Delivery: Triggering Keptn to deliver FrontEnd"
         			script {
 					  // Initialize the Keptn Project
                       keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}", monitoring:"dynatrace" 
@@ -45,7 +45,7 @@ pipeline {
     		stage('Trigger ${params.Service1}') {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravelMongoDB" } }
     			 steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image1}"			   
+        			echo "Progressive Delivery: Triggering Keptn to deliver MongoDB"			   
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service1}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
@@ -59,7 +59,7 @@ pipeline {
     		stage('Trigger ${params.Service2}') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-backend" } }
     		     steps {
-       				echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
+       				echo "Progressive Delivery: Triggering Keptn to deliver Backend"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
@@ -73,7 +73,7 @@ pipeline {
     		stage('Trigger ${params.Service4}') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-www" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image4}"
+        			echo "Progressive Delivery: Triggering Keptn to deliver www"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}", monitoring:"dynatrace"
         				def labels=[:]
