@@ -1,0 +1,6 @@
+replicaCount: 1
+image: docker.io/dynatrace/easytravel-angular-frontend:latest
+service:
+    externalPort: 80
+    internalPort: 8080
+    name: easytravel-angular
