@@ -25,7 +25,7 @@ pipeline {
     }
 
     stages {        
-        	stage('Trigger ${params.Service3}') {
+        	stage('Trigger frontend') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-frontend" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver FrontEnd"
@@ -42,7 +42,7 @@ pipeline {
         			}
         		 }	
     		} 
-    		stage('Trigger ${params.Service1}') {
+    		stage('Trigger MongoDB') {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravelMongoDB" } }
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver MongoDB"			   
@@ -56,7 +56,7 @@ pipeline {
         			}
         		}	
     		}
-    		stage('Trigger ${params.Service2}') {
+    		stage('Trigger backend') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-backend" } }
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver Backend"
@@ -70,7 +70,7 @@ pipeline {
         			}	
 				} 
     		}    
-    		stage('Trigger ${params.Service4}') {
+    		stage('Trigger www') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-www" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver www"
