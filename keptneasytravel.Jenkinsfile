@@ -20,6 +20,8 @@ pipeline {
          string(defaultValue: 'docker.io/dynatrace/easytravel-frontend:latest', description: 'easytravel Frontend', name: 'Image3', trim: false)
          string(defaultValue: 'easytravel-www', description: 'easytravel nginx service', name: 'Service4', trim: false)
          string(defaultValue: 'docker.io/dynatrace/easytravel-nginx:latest', description: 'easytravel nginx', name: 'Image4', trim: false)
+	 string(defaultValue: 'easytravel-angular', description: 'easytravel angular service', name: 'Service5', trim: false)
+         string(defaultValue: 'docker.io/dynatrace/easytravel-angular-frontend:latest', description: 'easytravel angular', name: 'Image5', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "easytravelMongoDB", "easytravel-backend", "easytravel-frontend", "easytravel-www"])
     }
@@ -83,7 +85,21 @@ pipeline {
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
         		 }
-    		}          
+    		} 
+		stage('Trigger angular') {
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-angular" } }
+    		     steps {
+        			echo "Progressive Delivery: Triggering Keptn to deliver angular"
+        			script {
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}", stage:"${params.Stage}", monitoring:"dynatrace"
+        				def labels=[:]
+                        labels.put('TriggeredBy', 'Jenkins')
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.Image5}", labels : labels 
+        				String keptn_bridge = env.KEPTN_BRIDGE
+        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
+        			}
+        		 }
+    		}  
            stage('Wait for Result') {          
                  steps {             
             		script {                         
