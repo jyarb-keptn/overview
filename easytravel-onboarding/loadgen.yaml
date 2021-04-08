@@ -26,5 +26,5 @@ spec:
           value: http://easytravel-www.easytravel-staging.domain.placeholder:80
         - name: ET_PROBLEMS
           value: BadCacheSynchronization,CPULoad,DatabaseCleanup,DatabaseSlowdown,FetchSizeTooSmall,JourneySearchError404,JourneySearchError500,LoginProblems,MobileErrors,TravellersOptionBox
-        image: dynatrace/easytravel-loadgen:latest
+        image: dynatrace/easytravel-loadgen:2.0.0.3256
         name: easytravel-loadgen
