@@ -19,5 +19,8 @@ fi
 
 cat $yaml.yaml | sed 's~domain.placeholder~'"$DOMAIN"'~' > ./gen/$yaml.yaml
 
-kubectl create namespace loadgen
+if ! kubectl get namespaces -o json | jq -r ".items[].metadata.name" | grep loadgen;then 
+kubectl create namespace loadgen 
+fi
+
 kubectl apply -f gen/$yaml.yaml -n loadgen --record
