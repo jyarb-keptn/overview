@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: loadgenerator-prod
+  name: loadgenerator-prod
+  namespace: loadgen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loadgenerator-prod
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: loadgenerator-prod
+    spec:
+      containers:
+      - env:
+        - name: ET_APM_SERVER_DEFAULT
+          value: APM
+        - name: ET_WWW_URL
+          value: http://easytravel-www.easytravel-production.domain.placeholder:80     
+        - name: ET_FRONTEND_URL
+          value: http://easytravel-www.easytravel-production.domain.placeholder:80
+        - name: ET_BACKEND_URL
+          value: http://easytravel-backend.easytravel-production.domain.placeholder:80          
+        - name: ET_PROBLEMS
+          value: "DatabaseCleanup"
+        - name: ET_PROBLEMS_DELAY
+          value: "0"
+        - name: ET_VISIT_NUMBER
+          value: "5"          
+        image: dynatrace/easytravel-loadgen:2.0.0.3256
+        name: easytravel-loadgen-prod
