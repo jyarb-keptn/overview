@@ -4,6 +4,7 @@ kind: ConfigMap
 metadata:
   name: www-config
 data:
+  CATALINA_OPTS: "-Dconfig.apmServerDefault=APM -Xmx525m -Djava.security.egd=file:/dev/./urandom"
   ET_BACKEND_LOCATION: "easytravel-backend:8080"
   ET_FRONTEND_LOCATION: "easytravel-frontend:8080"
 ---
@@ -39,7 +40,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
-        - containerPort: 443            
+        - containerPort: 8080            
         envFrom:
           - configMapRef:
               name: www-config
@@ -65,16 +66,21 @@ spec:
         - name: KEPTN_DEPLOYMENT
           value: "{{ .Values.keptn.deployment }}"         
         livenessProbe:
+          failureThreshold: 3
           httpGet:
             path: /
             port: 80
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          timeoutSeconds: 15
+            scheme: HTTP
+          initialDelaySeconds: 240
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 1
         readinessProbe:
+          failureThreshold: 3
           httpGet:
             path: /
             port: 80
-          initialDelaySeconds: 60
+            scheme: HTTP
           periodSeconds: 10
-          timeoutSeconds: 15 
+          successThreshold: 1
+          timeoutSeconds: 1 
