@@ -4,7 +4,6 @@ kind: ConfigMap
 metadata:
   name: www-config
 data:
-  CATALINA_OPTS: "-Dconfig.apmServerDefault=APM -Xmx525m -Djava.security.egd=file:/dev/./urandom"
   ET_BACKEND_LOCATION: "easytravel-backend:8080"
   ET_FRONTEND_LOCATION: "easytravel-frontend:8080"
 ---
