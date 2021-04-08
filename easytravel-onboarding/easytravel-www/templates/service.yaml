@@ -16,4 +16,4 @@ spec:
     targetPort: 8080    
   selector:
     app: easytravel-www
-  type: LoadBalancer  
+  type: ClusterIP  
