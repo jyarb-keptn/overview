@@ -64,20 +64,20 @@ spec:
           value: "{{ .Values.keptn.service }}"
         - name: KEPTN_DEPLOYMENT
           value: "{{ .Values.keptn.deployment }}"         
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 240
-          periodSeconds: 60
-          successThreshold: 1
-          timeoutSeconds: 1
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: 80
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1 
+#        livenessProbe:
+#          failureThreshold: 3
+#          httpGet:
+#            path: /
+#            port: 80
+#          initialDelaySeconds: 240
+#          periodSeconds: 60
+#          successThreshold: 1
+#          timeoutSeconds: 1
+#        readinessProbe:
+#          failureThreshold: 3
+#          httpGet:
+#            path: /
+#            port: 80
+#          periodSeconds: 10
+#          successThreshold: 1
+#          timeoutSeconds: 1 
