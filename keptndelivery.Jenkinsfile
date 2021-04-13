@@ -48,10 +48,10 @@ pipeline {
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"			   
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}:${params.OrderRelease}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
-        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.orderImage}", labels : labels
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.orderImage}:${params.OrderRelease}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
