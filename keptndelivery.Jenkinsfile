@@ -16,7 +16,8 @@ pipeline {
          string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false)
          choice(name: 'OrderRelease', choices: ["1", "2", "3"], description: 'Order Service with Tag [:1,:2,:3]')
          string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false)
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service:1', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
+         choice(name: 'CustomerRelease', choices: ["1", "2", "3"], description: 'Customer Service with Tag [:1,:2,:3]')
          string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1', description: 'Tag:1', name: 'frontendImage', trim: false)
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
@@ -65,7 +66,7 @@ pipeline {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
-        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.customerImage}", labels : labels
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.customerImage}:${params.CustomerRelease}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}	
