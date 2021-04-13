@@ -13,7 +13,8 @@ pipeline {
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false) 
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
          string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false)
-         string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service:1', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false)
+         string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false)
+         choice(name: 'OrderRelease', choices: ["1", "2", "3"], description: 'Order Service with Tag [:1,:2,:3]')
          string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service:1', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
          string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false)
@@ -47,7 +48,7 @@ pipeline {
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"			   
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}:${params.OrderRelease}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
         				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.orderImage}", labels : labels
