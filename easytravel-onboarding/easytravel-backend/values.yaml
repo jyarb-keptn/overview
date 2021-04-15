@@ -2,5 +2,5 @@ replicaCount: 1
 image: docker.io/dynatrace/easytravel-backend:latest
 service:
     externalPort: 8080
-    internalPort: 8091
+    internalPort: 8080
     name: easytravel-backend
