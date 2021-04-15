@@ -52,7 +52,7 @@ spec:
         image: "{{ .Values.image }}"
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8080              
+        - containerPort: 8091              
         envFrom:
           - configMapRef:
               name: backend-config
@@ -88,14 +88,14 @@ spec:
         livenessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 8091
           initialDelaySeconds: 90
           periodSeconds: 10
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
             path: /
-            port: 8080
+            port: 8091
           initialDelaySeconds: 90
           periodSeconds: 10
           timeoutSeconds: 15
