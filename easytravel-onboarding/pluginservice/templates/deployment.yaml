@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pluginservice
+  labels:
+    app: pluginservice
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: pluginservice
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: pluginservice
+        app.kubernetes.io/name: {{ .Values.keptn.service }}
+        app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
+        app.kubernetes.io/component: api
+        app.kubernetes.io/part-of: "{{ .Values.keptn.project }}"
+        app.kubernetes.io/managed-by: Keptn
+        app.kubernetes.io/version: {{ (split ":" .Values.image)._1 | default "latest" }}        
+    spec:
+      containers:
+      - name: pluginservice
+        image: "{{ .Values.image }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 7654           
+        env: 
+        - name: DT_CUSTOM_PROP
+          value: "version={{ .Chart.Version }} revision={{ .Release.Revision }} releasename={{ .Release.Name }} keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.name"
+        - name: DEPLOYMENT_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: "metadata.labels['deployment']"
+        - name: CONTAINER_IMAGE
+          value: "{{ .Values.image }}"
+        - name: KEPTN_PROJECT
+          value: "{{ .Values.keptn.project }}"
+        - name: KEPTN_STAGE
+          value: "{{ .Values.keptn.stage }}"
+        - name: KEPTN_SERVICE
+          value: "{{ .Values.keptn.service }}"
+        - name: KEPTN_DEPLOYMENT
+          value: "{{ .Values.keptn.deployment }}"         
+#        livenessProbe:
+#          failureThreshold: 3
+#          httpGet:
+#            path: /
+#            port: 80
+#          initialDelaySeconds: 240
+#          periodSeconds: 60
+#          successThreshold: 1
+#          timeoutSeconds: 1
+#        readinessProbe:
+#          failureThreshold: 3
+#          httpGet:
+#            path: /
+#            port: 80
+#          periodSeconds: 10
+#          successThreshold: 1
+#          timeoutSeconds: 1 
