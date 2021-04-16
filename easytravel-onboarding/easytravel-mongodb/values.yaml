@@ -1,5 +1,5 @@
 replicaCount: 1
-image: docker.io/dynatrace/easytravel-mongodb:latest
+image: docker.io/dynatrace/easytravel-mongodb:2.0.0.3322
 service:
     externalPort: 27017
     internalPort: 27017
