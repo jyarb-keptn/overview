@@ -56,5 +56,4 @@ spec:
     targetPort: 8021
     nodePort: 8021
   selector:
-    app: loadgenerator-prod
-  type: ClusterIP        
+    app: loadgenerator-prod        
