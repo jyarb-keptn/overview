@@ -48,11 +48,13 @@ metadata:
   labels:   
     app: loadgenerator-prod
 spec:
+  type: NodePort
   ports:
   - name: loadgenerator-prod
     port: 8021
     protocol: TCP
     targetPort: 8021
+    nodePort: 8021
   selector:
     app: loadgenerator-prod
   type: ClusterIP        
