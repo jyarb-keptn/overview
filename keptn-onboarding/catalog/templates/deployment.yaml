@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog
+  name: catalog-service
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -11,20 +11,20 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: catalog
+      app: catalog-service
   template:
     metadata: 
       labels:
-        app: catalog
+        app: catalog-service
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
         app.kubernetes.io/part-of: "{{ .Values.keptn.project }}"
         app.kubernetes.io/managed-by: Keptn
-        app.kubernetes.io/version: {{ (split ":" .Values.image) | default 1 }}         
+        app.kubernetes.io/version: {{ (split ":" .Values.image) | default "1" }}         
     spec:
       containers:
-      - name: catalog
+      - name: catalog-service
         image: "{{ .Values.image }}"
         imagePullPolicy: Always
         ports:
