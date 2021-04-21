@@ -38,3 +38,5 @@ spec:
           value: "5"          
         image: dynatrace/easytravel-loadgen:2.0.0.3256
         name: easytravel-loadgen-prod
+        ports:
+        - containerPort: 8021
