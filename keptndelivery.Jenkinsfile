@@ -23,12 +23,12 @@ pipeline {
          string(defaultValue: 'catalog-service', description: 'Catalog Service', name: 'catalogService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
-         choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
+         choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend-service", "order-service", "catalog-service", "customer-service"])
     }
 
     stages {        
         	stage('Trigger FrontendService') {
-    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend-service" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
         			script {
@@ -45,7 +45,7 @@ pipeline {
         		 }	
     		} 
     		stage('Trigger orderService') {
-    			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
+    			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order-service" } }
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"			   
         			script {
@@ -59,7 +59,7 @@ pipeline {
         		}	
     		}
     		stage('Trigger customerService') {
-    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "customer" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "customer-service" } }
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
         			script {
@@ -73,7 +73,7 @@ pipeline {
 				} 
     		}    
     		stage('Trigger CatalogService') {
-    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "catalog" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "catalog-service" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
         			script {
