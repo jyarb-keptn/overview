@@ -3,4 +3,4 @@ image: docker.io/dtdemos/dt-orders-frontend:1
 service:
     externalPort: 80
     internalPort: 8080
-    name: frontend-service
+    name: frontend

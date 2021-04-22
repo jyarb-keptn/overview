@@ -12,23 +12,23 @@ pipeline {
     parameters {
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false) 
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
-         string(defaultValue: 'order-service', description: 'Order Service', name: 'orderService', trim: false)
+         string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service', description: 'Order Service with Tag [:1,:2:3]', name: 'orderImage', trim: false)
          choice(name: 'OrderRelease', choices: ["1", "2", "3"], description: 'Order Service with Tag [:1,:2,:3]')
-         string(defaultValue: 'customer-service', description: 'Customer Service', name: 'customerService', trim: false)
+         string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
          choice(name: 'CustomerRelease', choices: ["1", "2", "3"], description: 'Customer Service with Tag [:1,:2,:3]')
-         string(defaultValue: 'frontend-service', description: 'FrontEnd Service', name: 'frontendService', trim: false)
+         string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1', description: 'Tag:1', name: 'frontendImage', trim: false)
-         string(defaultValue: 'catalog-service', description: 'Catalog Service', name: 'catalogService', trim: false)
+         string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1', description: 'Tag:1', name: 'catalogImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
-         choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend-service", "order-service", "catalog-service", "customer-service"])
+         choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
     }
 
     stages {        
         	stage('Trigger FrontendService') {
-    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend-service" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
         			script {
@@ -45,7 +45,7 @@ pipeline {
         		 }	
     		} 
     		stage('Trigger orderService') {
-    			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order-service" } }
+    			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"			   
         			script {
@@ -59,7 +59,7 @@ pipeline {
         		}	
     		}
     		stage('Trigger customerService') {
-    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "customer-service" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "customer" } }
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
         			script {
@@ -73,7 +73,7 @@ pipeline {
 				} 
     		}    
     		stage('Trigger CatalogService') {
-    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "catalog-service" } }
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "catalog" } }
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
         			script {
