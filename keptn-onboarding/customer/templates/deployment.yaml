@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-service
+  name: customer
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -11,11 +11,11 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: frontend-service
+      app: customer
   template:
     metadata: 
       labels:
-        app: frontend-service
+        app: customer
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
@@ -24,7 +24,7 @@ spec:
         app.kubernetes.io/version: "1"        
     spec:
       containers:
-      - name: frontend-service
+      - name: customer
         image: "{{ .Values.image }}"
         imagePullPolicy: Always
         ports:
@@ -56,20 +56,20 @@ spec:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 20
+          initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 15
         resources:
           limits:
-            cpu: 200m
-            memory: 128Mi
+            cpu: 1000m
+            memory: 2048Mi
           requests:
-            cpu: 100m
-            memory: 128Mi
+            cpu: 500m
+            memory: 1024Mi

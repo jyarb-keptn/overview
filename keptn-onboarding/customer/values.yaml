@@ -3,4 +3,4 @@ image: docker.io/dtdemos/dt-orders-customer-service:1
 service:
     externalPort: 8080
     internalPort: 8080
-    name: customer-service
+    name: customer

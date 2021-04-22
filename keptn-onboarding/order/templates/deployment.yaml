@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catalog-service
+  name: order
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
@@ -11,20 +11,20 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: catalog-service
+      app: order
   template:
     metadata: 
       labels:
-        app: catalog-service
+        app: order
         app.kubernetes.io/name: {{ .Values.keptn.service }}
         app.kubernetes.io/instance: "{{ .Values.keptn.service }}-{{ .Values.keptn.deployment }}"
         app.kubernetes.io/component: api
         app.kubernetes.io/part-of: "{{ .Values.keptn.project }}"
         app.kubernetes.io/managed-by: Keptn
-        app.kubernetes.io/version: "1"         
+        app.kubernetes.io/version: "1"        
     spec:
       containers:
-      - name: catalog-service
+      - name: order
         image: "{{ .Values.image }}"
         imagePullPolicy: Always
         ports:
@@ -56,14 +56,14 @@ spec:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 60
+          initialDelaySeconds: 90
           periodSeconds: 10
           timeoutSeconds: 15
         readinessProbe:
           httpGet:
             path: /
             port: 8080
-          initialDelaySeconds: 60
+          initialDelaySeconds: 90
           periodSeconds: 10
           timeoutSeconds: 15
         resources:
