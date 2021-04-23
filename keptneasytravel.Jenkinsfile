@@ -21,14 +21,14 @@ pipeline {
          string(defaultValue: 'easytravel-www', description: 'easytravel nginx service', name: 'Service4', trim: false)
          string(defaultValue: 'docker.io/dynatrace/easytravel-nginx:2.0.0.3322', description: 'easytravel nginx', name: 'Image4', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
-         choice(name: 'DEPLOY_TO', choices: ["none", "all", "easytravelMongoDB", "easytravel-backend", "easytravel-frontend", "easytravel-www"])
+         choice(name: 'DEPLOY_TO', choices: ["none", "all", "easytravelMongoDB", "easytravel-backend", "easytravel-frontend", "easytravel-www", "easytravel-angular"])
     }
 
     stages {        
-        	stage('Trigger ${params.Service3}') {
+        	stage('Trigger frontend') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-frontend" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image3}"
+        			echo "Progressive Delivery: Triggering Keptn to deliver FrontEnd"
         			script {
 					  // Initialize the Keptn Project
                       keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}", monitoring:"dynatrace" 
@@ -42,10 +42,10 @@ pipeline {
         			}
         		 }	
     		} 
-    		stage('Trigger ${params.Service1}') {
+    		stage('Trigger MongoDB') {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravelMongoDB" } }
     			 steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image1}"			   
+        			echo "Progressive Delivery: Triggering Keptn to deliver MongoDB"			   
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service1}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
@@ -56,10 +56,10 @@ pipeline {
         			}
         		}	
     		}
-    		stage('Trigger ${params.Service2}') {
+    		stage('Trigger backend') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-backend" } }
     		     steps {
-       				echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}"
+       				echo "Progressive Delivery: Triggering Keptn to deliver Backend"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
@@ -70,10 +70,10 @@ pipeline {
         			}	
 				} 
     		}    
-    		stage('Trigger ${params.Service4}') {
+    		stage('Trigger www') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-www" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image4}"
+        			echo "Progressive Delivery: Triggering Keptn to deliver www"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}", monitoring:"dynatrace"
         				def labels=[:]
@@ -83,7 +83,21 @@ pipeline {
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
         		 }
-    		}          
+    		} 
+		stage('Trigger angular') {
+    		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-angular" } }
+    		     steps {
+        			echo "Progressive Delivery: Triggering Keptn to deliver angular"
+        			script {
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}", stage:"${params.Stage}", monitoring:"dynatrace"
+        				def labels=[:]
+                        labels.put('TriggeredBy', 'Jenkins')
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.Image5}", labels : labels 
+        				String keptn_bridge = env.KEPTN_BRIDGE
+        				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
+        			}
+        		 }
+    		}  
            stage('Wait for Result') {          
                  steps {             
             		script {                         
