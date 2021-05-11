@@ -20,6 +20,8 @@ pipeline {
          string(defaultValue: 'docker.io/dynatrace/easytravel-frontend:2.0.0.3322', description: 'easytravel Frontend', name: 'Image3', trim: false)
          string(defaultValue: 'easytravel-www', description: 'easytravel nginx service', name: 'Service4', trim: false)
          string(defaultValue: 'docker.io/dynatrace/easytravel-nginx:2.0.0.3322', description: 'easytravel nginx', name: 'Image4', trim: false)
+	 string(defaultValue: 'easytravel-angular', description: 'easytravel nginx service', name: 'Service5', trim: false)
+         string(defaultValue: 'docker.io/dynatrace/easytravel-angular:2.0.0.3322', description: 'easytravel amgular', name: 'Image5', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "easytravelMongoDB", "easytravel-backend", "easytravel-frontend", "easytravel-www", "easytravel-angular"])
     }
