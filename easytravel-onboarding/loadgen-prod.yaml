@@ -27,7 +27,7 @@ spec:
         - name: ET_WWW_URL
           value: http://easytravel-www.easytravel-production.domain.placeholder:80     
         - name: ET_FRONTEND_URL
-          value: http://easytravel-frontend.easytravel-production.domain.placeholder:80
+          value: http://easytravel-www.easytravel-production.domain.placeholder:80
         - name: ET_BACKEND_URL
           value: http://easytravel-backend.easytravel-production.domain.placeholder:80          
         - name: ET_PROBLEMS
