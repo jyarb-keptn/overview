@@ -31,7 +31,7 @@ spec:
         - name: ET_BACKEND_URL
           value: http://easytravel-backend.easytravel-staging.domain.placeholder:80          
         - name: ET_PROBLEMS
-          value: "DatabaseCleanup LoginProblems"
+          value: "DatabaseCleanup LoginProblems MobileErrors"
         - name: ET_PROBLEMS_DELAY
           value: "0"
         - name: ET_VISIT_NUMBER
