@@ -37,22 +37,4 @@ spec:
         - name: ET_VISIT_NUMBER
           value: "5"          
         image: dynatrace/easytravel-loadgen:2.0.0.3256
-        name: easytravel-loadgen-prod
-        ports:
-        - containerPort: 8021
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: loadgenerator-prod
-  labels:   
-    app: loadgenerator-prod
-spec:
-  ports:
-  - name: loadgenerator-prod
-    port: 8021
-    protocol: TCP
-    targetPort: 8021
-  selector:
-    app: loadgenerator-prod
-  type: ClusterIP        
+        name: easytravel-loadgen-prod        

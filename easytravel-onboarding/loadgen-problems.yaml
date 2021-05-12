@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: loadgenerator
-  name: loadgenerator
+    app: loadgenerator-problems
+  name: loadgenerator-problems
   namespace: loadgen
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: loadgenerator
+      app: loadgenerator-problems
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,7 +18,7 @@ spec:
   template:
     metadata:
       labels:
-        app: loadgenerator
+        app: loadgenerator-problems
     spec:
       containers:
       - env:
@@ -27,11 +27,11 @@ spec:
         - name: ET_WWW_URL
           value: http://easytravel-www.easytravel-staging.domain.placeholder:80     
         - name: ET_FRONTEND_URL
-          value: http://easytravel-frontend.easytravel-staging.domain.placeholder:80
+          value: http://easytravel-www.easytravel-staging.domain.placeholder:80
         - name: ET_BACKEND_URL
           value: http://easytravel-backend.easytravel-staging.domain.placeholder:80          
         - name: ET_PROBLEMS
-          value: "LoginProblems"
+          value: "DatabaseCleanup LoginProblems MobileErrors"
         - name: ET_PROBLEMS_DELAY
           value: "0"
         - name: ET_VISIT_NUMBER
