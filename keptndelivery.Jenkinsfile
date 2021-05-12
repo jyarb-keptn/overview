@@ -14,7 +14,7 @@ pipeline {
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
          string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-order-service', description: 'Order Service with Tag [:1.0.0,:2.0.0,:3.0.0,:4.0.0]', name: 'orderImage', trim: false)
-         choice(name: 'OrderRelease', choices: ["1.0.0", "2.0.0", "3.0.0, 4.0.0"], description: 'Order Service with Tag [:1.0.0,:2.0.0,:3.0.0,:4.0.0]')
+         choice(name: 'OrderRelease', choices: ["1.0.0", "2.0.0", "3.0.0", "4.0.0"], description: 'Order Service with Tag [:1.0.0,:2.0.0,:3.0.0,:4.0.0]')
          string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-customer-service', description: 'Customer Service with Tag [:1.0.0,:2.0.0,:3.0.0]', name: 'customerImage', trim: false)
          choice(name: 'CustomerRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Customer Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
