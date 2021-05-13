@@ -31,7 +31,7 @@ spec:
         - name: ET_BACKEND_URL
           value: http://easytravel-backend.easytravel-production.domain.placeholder:80          
         - name: ET_PROBLEMS
-          value: "DatabaseCleanup LoginProblems MobileErrors"
+          value: "BadCacheSynchronization,CPULoad,DatabaseCleanup,DatabaseSlowdown,FetchSizeTooSmall,JourneySearchError404,JourneySearchError500,LoginProblems,MobileErrors,TravellersOptionBox"
         - name: ET_PROBLEMS_DELAY
           value: "0"
         - name: ET_VISIT_NUMBER
