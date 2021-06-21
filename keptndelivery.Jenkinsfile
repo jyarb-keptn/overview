@@ -26,6 +26,10 @@ pipeline {
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
 	}
 	
+        options {
+           buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        }
+	
 	triggers {
           parameterizedCron('''
             H/15 * * * * %DEPLOY_TO=frontend
