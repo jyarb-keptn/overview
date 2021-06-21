@@ -9,7 +9,8 @@ pipeline {
     	def waitTime = 0
     }
 
-    parameters {
+    properties([
+        parameters([
          string(defaultValue: 'keptnorders', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false) 
          string(defaultValue: 'staging', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
          string(defaultValue: 'order', description: 'Order Service', name: 'orderService', trim: false)
@@ -22,9 +23,20 @@ pipeline {
          string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1.0.0', description: 'Tag:1.0.0', name: 'frontendImage', trim: false)
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1.0.0', description: 'Tag:1.0.0', name: 'catalogImage', trim: false)
-         string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
-         choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
-    }
+         string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult'),
+         choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"]),
+	]), 
+	buildDiscarder(logRotator(daysToKeepStr: '', numToKeepStr: '10')),
+        pipelineTriggers([
+          parameterizedCron('''
+            H/15 * * * * %DEPLOY_TO=frontend
+            H/30 * * * * %DEPLOY_TO=catalog
+            H/45 * * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
+            H * * * * %OrderRelease=1.0.0;DEPLOY_TO=customer
+            H 00 * * * %OrderRelease=1.0.0;CustomerRelease=1.0.0;DEPLOY_TO=all
+        ''')
+      ])
+    ])
 
     stages {        
         	stage('Trigger FrontendService') {
