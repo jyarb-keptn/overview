@@ -22,9 +22,10 @@ pipeline {
          string(defaultValue: 'docker.io/dtdemos/dt-orders-frontend:1.0.0', description: 'Tag:1.0.0', name: 'frontendImage', trim: false)
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
          string(defaultValue: 'docker.io/dtdemos/dt-orders-catalog-service:1.0.0', description: 'Tag:1.0.0', name: 'catalogImage', trim: false)
-         string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult'),
+         string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
 	}
+	
 	triggers {
           parameterizedCron('''
             H/15 * * * * %DEPLOY_TO=frontend
