@@ -25,9 +25,9 @@ spec:
         - name: ET_APM_SERVER_DEFAULT
           value: APM
         - name: ET_WWW_URL
-          value: http://easytravel-www.easytravel-staging.domain.placeholder:80     
+          value: http://easytravel-frontend.easytravel-staging.domain.placeholder:80     
         - name: ET_FRONTEND_URL
-          value: http://easytravel-www.easytravel-staging.domain.placeholder:80
+          value: http://easytravel-frontend.easytravel-staging.domain.placeholder:80
         - name: ET_BACKEND_URL
           value: http://easytravel-backend.easytravel-staging.domain.placeholder:80          
         - name: ET_PROBLEMS
