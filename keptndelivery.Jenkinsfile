@@ -35,7 +35,8 @@ pipeline {
             H * * * * %DEPLOY_TO=frontend
             0 */4 * * * %DEPLOY_TO=catalog
             0 */3 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
-            0 */2 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
+            0 */4 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
+	    0 */2 * * * %OrderRelease=2.0.0;DEPLOY_TO=order
             H 00 * * * %OrderRelease=1.0.0;CustomerRelease=1.0.0;DEPLOY_TO=all
         ''')
 	}
