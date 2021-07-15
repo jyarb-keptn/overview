@@ -2,7 +2,8 @@
 
 KEPTN_IN_A_BOX_DIR="~/keptn-in-a-box"
 KEPTN_CATALOG_DIR="~/overview"
-DOMAIN="192.168.3.91.nip.io"
+#DOMAIN="192.168.3.91.nip.io"
+DOMAIN="`curl http://checkip.amazonaws.com`.nip.io"
 
 keptn delete project keptnorders
 
