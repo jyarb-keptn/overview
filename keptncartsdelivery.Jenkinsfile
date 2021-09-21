@@ -15,10 +15,10 @@ pipeline {
          string(defaultValue: 'carts', description: 'Carts Service', name: 'cartsService', trim: false)
          string(defaultValue: 'docker.io/keptnexamples/carts', description: 'Carts Service Image', name: 'cartsImage', trim: false)
 	 choice(name: 'Release', choices: ["0.12.1", "0.12.2", "0.12.3"], description: 'Carts Service with Tag [:0.12.1,:0.12.2,:0.12.3]')
-         string(defaultValue: 'carts-db', description: 'Carts mongoDB', name: 'carts-dbService', trim: false)
-         string(defaultValue: 'docker.io/mongo:4.2.2', description: 'Carts-db Service with Tag [:4.2.2]', name: 'carts-dbImage', trim: false)
+         string(defaultValue: 'carts-db', description: 'Carts mongoDB', name: 'cartsdbService', trim: false)
+         string(defaultValue: 'docker.io/mongo:4.2.2', description: 'Carts-db Service with Tag [:4.2.2]', name: 'cartsdbImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
-         choice(name: 'DEPLOY_TO', choices: ["none", "all", "carts", "carts-db"])
+         choice(name: 'DEPLOY_TO', choices: ["none", "all", "carts", "cartsdb"])
     }
 
     stages {        
@@ -40,14 +40,14 @@ pipeline {
         		 }	
     		} 
     		stage('Trigger carts-dbService') {
-    			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "carts-db" } }
+    			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "cartsdb" } }
     			 steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.carts-dbImage}"			   
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.cartsdbImage}"			   
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.carts-dbService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.cartsdbService}", stage:"${params.Stage}", monitoring:"dynatrace"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
-        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.carts-dbImage}", labels : labels
+        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.cartsdbImage}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
