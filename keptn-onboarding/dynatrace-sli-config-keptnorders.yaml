@@ -1,12 +1,6 @@
-# add using kubectl apply -f simple_dynatrace_sli.yaml
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: dynatrace-sli-config-keptnorders
-  namespace: keptn
-data:
-  custom-queries: |
+---
+spec_version: '1.0'
+indicators:
     throughput: "builtin:service.requestCount.total:merge(\"dt.entity.service\"):count?scope=tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
     error_rate: "builtin:service.errors.total.count:merge(\"dt.entity.service\"):avg?scope=tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
     response_time_p50: "builtin:service.response.time:merge(\"dt.entity.service\"):percentile(50)?scope=tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
