@@ -30,14 +30,15 @@ pipeline {
            buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         }
 	
-	triggers {
-          parameterizedCron('''
-        //    H */12 * * * %DEPLOY_TO=frontend
+	//    H */12 * * * %DEPLOY_TO=frontend
         //    H/15 */8 * * * %DEPLOY_TO=catalog
-              H */8 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
-              H */8 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
 	//    H */12 * * * %OrderRelease=2.0.0;DEPLOY_TO=order
         //    H 0 * * * %OrderRelease=1.0.0;CustomerRelease=1.0.0;DEPLOY_TO=all
+
+	triggers {
+          parameterizedCron('''
+              H */8 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
+              H */8 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
         ''')
 	}
 
