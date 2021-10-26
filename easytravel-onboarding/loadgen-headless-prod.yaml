@@ -26,5 +26,5 @@ spec:
           value: APM
         - name: ET_ANGULAR_FRONTEND_URL
           value: http://easytravel-angular.easytravel-production.domain.placeholder:80             
-        image: dynatrace/easytravel-headless-loadgen:latest
+        image: dynatrace/easytravel-headless-loadgen:3356
         name: angular-loadgen-prod
