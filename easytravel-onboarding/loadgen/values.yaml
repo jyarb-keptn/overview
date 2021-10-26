@@ -1,5 +1,5 @@
 replicaCount: 1
-image: docker.io/dynatrace/easytravel-loadgen:latest
+image: docker.io/dynatrace/easytravel-loadgen:3356
 service:
     externalPort: 8080
     internalPort: 8080
