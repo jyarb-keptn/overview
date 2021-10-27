@@ -4,4 +4,4 @@ metadata:
   name: "shipyard-qualitygate"
 spec:
   stages:
-    - name: "staging"
+    - name: "hardening"
