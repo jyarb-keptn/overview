@@ -35,3 +35,16 @@ spec:
                 pass: "automatic"
                 warning: "manual"    
             - name: "release" 
+        - name: "remediation"
+          triggeredOn:
+            - event: "production.remediation.finished"
+              selector:
+                match:
+                  evaluation.result: "fail"
+          tasks:
+            - name: "get-action"
+            - name: "action"
+            - name: "evaluation"
+              triggeredAfter: "5m"
+              properties:
+                timeframe: "5m"             
