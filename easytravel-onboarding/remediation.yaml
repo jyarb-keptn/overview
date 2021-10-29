@@ -16,3 +16,9 @@ spec:
           name: scaling
           description: Scale up
           value: "1"
+    - problemType: Failure rate increase
+      actionsOnOpen:
+        - action: scaling
+          name: scaling
+          description: Scale up
+          value: "1"
