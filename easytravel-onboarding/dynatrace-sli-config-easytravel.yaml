@@ -1,4 +1,3 @@
----
 spec_version: '1.0'
 indicators:
     throughput: "builtin:service.requestCount.total:merge(\"dt.entity.service\"):count?scope=tag(keptn_project:$PROJECT),tag(keptn_stage:$STAGE),tag(keptn_service:$SERVICE),tag(keptn_deployment:$DEPLOYMENT)"
