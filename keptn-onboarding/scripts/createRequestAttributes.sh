@@ -30,6 +30,7 @@ echo "Usage: ./createRequestAttributes"
 
 function createRequestAttribute() {
 	ATTRIBUTENAME=$1
+  DELIMETER=$2
     PAYLOAD='{
   "name": "'$ATTRIBUTENAME'",
   "enabled": true,
@@ -43,7 +44,7 @@ function createRequestAttribute() {
         "trim": false,
         "extractSubstring": {
           "position": "BETWEEN",
-          "delimiter": "'$ATTRIBUTENAME'=",
+          "delimiter": "'$DELIMETER'=",
           "endDelimiter": ";"
         }
       },
@@ -77,22 +78,27 @@ function createRequestAttribute() {
 ###########################################################################
 # First we create TSN
 ###########################################################################
-createRequestAttribute "TSN"
+createRequestAttribute "TSN" "TSN"
 
 ###########################################################################
 
 # second we create LSN
 ###########################################################################
-createRequestAttribute "LSN"
+createRequestAttribute "LSN" "LSN"
 
 ###########################################################################
 
 # third we create LTN
 ###########################################################################
-createRequestAttribute "LTN"
+createRequestAttribute "LTN" "LTN"
 
 ###########################################################################
 
 # fourth we create SI
 ###########################################################################
-createRequestAttribute "SI"
+createRequestAttribute "SI" "SI"
+
+###########################################################################
+# First we create TSN
+###########################################################################
+createRequestAttribute "TestStepName" "TSN"
