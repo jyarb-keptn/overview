@@ -61,7 +61,7 @@ function createRequestAttribute() {
   echo ""
   echo "Creating Metric $METRICNAME($METRICNAME)"
   echo "POST https://$DT_TENANT/api/config/v1/cservice/requestAttributes"
-  echo "$PAYLOAD"
+  #echo "$PAYLOAD"
   curl -X POST \
           "https://$DT_TENANT/api/config/v1/service/requestAttributes" \
           -H 'accept: application/json; charset=utf-8' \

@@ -96,7 +96,7 @@ function createCalculatedTestMetric() {
   echo ""
   echo "Creating Metric $METRICNAME($METRICNAME)"
   echo "PUT https://$DT_TENANT/api/config/v1/calculatedMetrics/service/$METRICKEY"
-  echo "$PAYLOAD"
+  #echo "$PAYLOAD"
   curl -X PUT \
           "https://$DT_TENANT/api/config/v1/calculatedMetrics/service/$METRICKEY" \
           -H 'accept: application/json; charset=utf-8' \

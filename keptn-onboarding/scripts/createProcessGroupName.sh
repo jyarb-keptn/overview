@@ -58,7 +58,7 @@ function createProcessGroupName() {
   echo ""
   echo "Creating Metric $METRICNAME($METRICNAME)"
   echo "POST https://$DT_TENANT/api/config/v1/conditionalNaming/processGroup"
-  echo "$PAYLOAD"
+  #echo "$PAYLOAD"
   curl -X POST \
           "https://$DT_TENANT/api/config/v1/conditionalNaming/processGroup" \
           -H 'accept: application/json; charset=utf-8' \
