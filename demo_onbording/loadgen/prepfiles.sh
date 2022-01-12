@@ -1,6 +1,8 @@
 #!/bin/bash -x
 
-cp ~/examples/load-generation/cartsloadgen/deploy/cartsloadgen-* ~/overview/demo_onbording/loadgen/.
+HOMEDIR="/home/dtu_training"
+
+cp ${HOMEDIR}/examples/load-generation/cartsloadgen/deploy/cartsloadgen-* ${HOMEDIR}/overview/demo_onbording/loadgen/.
 
 DOMAIN=$1
 
