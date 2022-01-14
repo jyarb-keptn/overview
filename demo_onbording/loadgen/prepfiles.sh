@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-HOMEDIR=$1
+HOMEDIR=$2
 
 cp ${HOMEDIR}/examples/load-generation/cartsloadgen/deploy/cartsloadgen-* ${HOMEDIR}/overview/demo_onbording/loadgen/.
 
