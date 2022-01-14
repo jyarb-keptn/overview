@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-HOMEDIR="/home/dtu_training"
+HOMEDIR=$1
 
 cp ${HOMEDIR}/examples/load-generation/cartsloadgen/deploy/cartsloadgen-* ${HOMEDIR}/overview/demo_onbording/loadgen/.
 
