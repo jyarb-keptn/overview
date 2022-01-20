@@ -9,10 +9,10 @@ rm easytravel-mongodb.tgz
 
 echo "Creating tgz files...."
 
-tar -czvf easytravel-angular.tgz /easytravel-angular
-tar -czvf easytravel-www.tgz /easytravel-www
-tar -czvf easytravel-backend.tgz /easytravel-backend
-tar -czvf easytravel-frontend.tgz /easytravel-frontend
-tar -czvf easytravel-mongodb.tgz /easytravel-mongodb
+tar -czvf easytravel-angular.tgz easytravel-angular
+tar -czvf easytravel-www.tgz easytravel-www
+tar -czvf easytravel-backend.tgz easytravel-backend
+tar -czvf easytravel-frontend.tgz easytravel-frontend
+tar -czvf easytravel-mongodb.tgz easytravel-mongodb
 
 echo "tarballs created...."
