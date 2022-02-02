@@ -1,5 +1,5 @@
 replicaCount: 1
-image: docker.io/dynatrace/easytravel-nginx:2.0.0.3356
+image: docker.io/dynatrace/easytravel-nginx:2.0.0.3373
 service:
     externalPort: 80
     internalPort: 80
