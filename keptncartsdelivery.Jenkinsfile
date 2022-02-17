@@ -1,4 +1,4 @@
-@Library('keptn-library@master')_
+@Library('keptn-library@5.1.1')_
 import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
 
@@ -28,12 +28,12 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.cartsImage}:${params.Release}"
         			script {
 					  // Initialize the Keptn Project
-                      keptn.keptnInit project:"${params.Project}", service:"${params.cartsService}", stage:"${params.Stage}", monitoring:"dynatrace" 
+                      keptn.keptnInit project:"${params.Project}", service:"${params.cartsService}", stage:"${params.Stage}" 
 				      //set a label
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
         			  // Deploy via keptn
-        			  def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.cartsImage}:${params.Release}", labels : labels
+        			  def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.cartsImage}:${params.Release}", labels : labels
         			  String keptn_bridge = env.KEPTN_BRIDGE
         			  echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
@@ -44,10 +44,10 @@ pipeline {
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.cartsdbImage}"			   
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.cartsdbService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.cartsdbService}", stage:"${params.Stage}"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
-        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.cartsdbImage}", labels : labels
+        				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.cartsdbImage}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}

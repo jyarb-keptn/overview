@@ -1,4 +1,4 @@
-@Library('keptn-library@master')_
+@Library('keptn-library@5.1.1')_
 import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
 
@@ -50,12 +50,12 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
         			script {
 					  // Initialize the Keptn Project
-                      keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}", monitoring:"dynatrace" 
+                      keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}" 
 				      //set a label
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
         			  // Deploy via keptn
-        			  def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.frontendImage}", labels : labels
+        			  def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.frontendImage}", labels : labels
         			  String keptn_bridge = env.KEPTN_BRIDGE
         			  echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
@@ -66,10 +66,10 @@ pipeline {
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"			   
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
-        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.orderImage}:${params.OrderRelease}", labels : labels
+        				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.orderImage}:${params.OrderRelease}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
@@ -80,10 +80,10 @@ pipeline {
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
-        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.customerImage}:${params.CustomerRelease}", labels : labels
+        				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.customerImage}:${params.CustomerRelease}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}	
@@ -94,10 +94,10 @@ pipeline {
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}"
         				def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
-        				def keptnContext = keptn.sendConfigurationChangedEvent image:"${params.catalogImage}", labels : labels 
+        				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.catalogImage}", labels : labels 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
