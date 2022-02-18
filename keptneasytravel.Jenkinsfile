@@ -1,4 +1,4 @@
-@Library('keptn-library@5.1.1')_
+@Library('keptn-library@6.0.0-next.1')_
 import sh.keptn.Keptn
 def keptn = new sh.keptn.Keptn()
 
@@ -33,7 +33,7 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver FrontEnd"
         			script {
 					  // Initialize the Keptn Project
-                      keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}", monitoring:"dynatrace" 
+                      keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}" 
 				      //set a label
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
@@ -49,7 +49,7 @@ pipeline {
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver MongoDB"			   
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service1}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service1}", stage:"${params.Stage}"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image1}", labels : labels
@@ -63,7 +63,7 @@ pipeline {
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver Backend"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}"
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins') 
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image2}", labels : labels
@@ -77,7 +77,7 @@ pipeline {
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver www"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}"
         				def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image4}", labels : labels 
@@ -91,7 +91,7 @@ pipeline {
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver angular"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}", stage:"${params.Stage}", monitoring:"dynatrace"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}", stage:"${params.Stage}"
         				def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image5}", labels : labels 
