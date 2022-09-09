@@ -1,5 +1,5 @@
 replicaCount: 1
-image: docker.io/dynatrace/easytravel-pluginservice:latest
+image: dynatrace/easytravel-pluginservice:latest
 service:
     externalPort: 7654
     internalPort: 7654

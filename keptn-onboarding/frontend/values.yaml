@@ -1,5 +1,5 @@
 replicaCount: 1
-image: docker.io/dtdemos/dt-orders-frontend:1.0.0
+image: dtdemos/dt-orders-frontend:1.0.0
 service:
     externalPort: 80
     internalPort: 8080

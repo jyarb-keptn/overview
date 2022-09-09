@@ -20,4 +20,4 @@ keptn add-resource --project=easytravel --stage=staging --service=easytravel-bac
 
 keptn add-resource --project=easytravel --stage=production --service=easytravel-backend --resource=simple_slo.yaml --resourceUri=slo.yaml
 
-keptn trigger delivery --project=easytravel --service=easytravel-backend --image=docker.io/dynatrace/easytravel-backend --tag=latest --labels=creator=cli
+keptn trigger delivery --project=easytravel --service=easytravel-backend --image=dynatrace/easytravel-backend --tag=latest --labels=creator=cli
