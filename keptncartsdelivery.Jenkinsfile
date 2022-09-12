@@ -13,10 +13,10 @@ pipeline {
          string(defaultValue: 'sockshop', description: 'Name of your Keptn Project you have setup for progressive delivery', name: 'Project', trim: false) 
          string(defaultValue: 'dev', description: 'First stage you want to deploy into', name: 'Stage', trim: false) 
          string(defaultValue: 'carts', description: 'Carts Service', name: 'cartsService', trim: false)
-         string(defaultValue: 'docker.io/keptnexamples/carts', description: 'Carts Service Image', name: 'cartsImage', trim: false)
+         string(defaultValue: 'keptnexamples/carts', description: 'Carts Service Image', name: 'cartsImage', trim: false)
 	 choice(name: 'Release', choices: ["0.12.1", "0.12.2", "0.12.3"], description: 'Carts Service with Tag [:0.12.1,:0.12.2,:0.12.3]')
          string(defaultValue: 'carts-db', description: 'Carts mongoDB', name: 'cartsdbService', trim: false)
-         string(defaultValue: 'docker.io/mongo:4.2.2', description: 'Carts-db Service with Tag [:4.2.2]', name: 'cartsdbImage', trim: false)
+         string(defaultValue: 'mongo:4.2.2', description: 'Carts-db Service with Tag [:4.2.2]', name: 'cartsdbImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "carts", "cartsdb"])
     }

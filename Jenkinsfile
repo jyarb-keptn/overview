@@ -27,10 +27,10 @@ pipeline {
         
     
         // build the docker image name using tag value passed as parameters
-        frontendimage = "docker.io/dtdemos/dt-orders-frontend:${params.frontend_version}"
-        orderserviceimage = "docker.io/dtdemos/dt-orders-catalog-service:${params.order_service_version}"
-        customerserviceimage = "docker.io/dtdemos/dt-orders-customer-service:${params.customer_service_version}"
-        catalogserviceimage = "docker.io/dtdemos/dt-orders-catalog-service:${params.catalog_service_version}"
+        frontendimage = "dtdemos/dt-orders-frontend:${params.frontend_version}"
+        orderserviceimage = "dtdemos/dt-orders-catalog-service:${params.order_service_version}"
+        customerserviceimage = "dtdemos/dt-orders-customer-service:${params.customer_service_version}"
+        catalogserviceimage = "dtdemos/dt-orders-catalog-service:${params.catalog_service_version}"
     }
     stages {
         stage('configure-services') {
@@ -64,10 +64,10 @@ pipeline {
         stage('keptn send') {
             steps {
                 script {
-                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=catalog --image=docker.io/dtdemos/dt-orders-catalog-service --tag=${params.catalog_service_version}"
-                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=order --image=docker.io/dtdemos/dt-orders-order-service --tag=${params.order_service_version}"
-                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=customer --image=docker.io/dtdemos/dt-orders-customer-service --tag=${params.customer_service_version}"
-                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=frontend --image=docker.io/dtdemos/dt-orders-frontend --tag=${params.frontend_version}"   
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=catalog --image=dtdemos/dt-orders-catalog-service --tag=${params.catalog_service_version}"
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=order --image=dtdemos/dt-orders-order-service --tag=${params.order_service_version}"
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=customer --image=dtdemos/dt-orders-customer-service --tag=${params.customer_service_version}"
+                 sh "/tmp/keptn send event new-artifact --project=keptnorders --service=frontend --image=dtdemos/dt-orders-frontend --tag=${params.frontend_version}"   
                 }
             }    
         }
