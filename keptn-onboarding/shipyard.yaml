@@ -60,4 +60,21 @@ spec:
             - name: "evaluation"
               triggeredAfter: "5m"
               properties:
-                timeframe: "5m"             
+                timeframe: "5m"    
+
+    - name: "prod-p"
+      sequences:
+        - name: "delivery"
+          tasks:
+            - name: "deployment"
+              properties:
+              deploymentstrategy: "direct"
+            - name: "test"
+              properties:
+                teststrategy: "performance"
+            - name: "evaluation"
+            - name: "approval"
+            properties:
+              pass: "automatic"
+              warning: "automatic"
+            - name: "release"
