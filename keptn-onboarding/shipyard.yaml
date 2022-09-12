@@ -68,13 +68,13 @@ spec:
           tasks:
             - name: "deployment"
               properties:
-              deploymentstrategy: "direct"
+                deploymentstrategy: "direct"
             - name: "test"
               properties:
                 teststrategy: "performance"
             - name: "evaluation"
             - name: "approval"
-            properties:
-              pass: "automatic"
-              warning: "automatic"
+              properties:
+                pass: "automatic"
+                warning: "automatic"
             - name: "release"
