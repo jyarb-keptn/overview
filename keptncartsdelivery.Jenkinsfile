@@ -1,6 +1,26 @@
 @Library('keptn-library@6.0.0-next.1')_
 import sh.keptn.Keptn
+
+import java.time.temporal.ChronoUnit
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 def keptn = new sh.keptn.Keptn()
+
+def getNow() {
+  //return java.time.LocalDateTime.now() ;
+  //return java.time.Instant.now().truncatedTo( ChronoUnit.MILLIS ) ;
+  
+  LocalDateTime localDateTime = LocalDateTime.now();
+  
+  ZonedDateTime zdt = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
+  
+  long date = zdt.toInstant().toEpochMilli();
+
+  return date
+}
 
 pipeline {
     agent any
@@ -29,9 +49,14 @@ pipeline {
         			script {
 					  // Initialize the Keptn Project
                       keptn.keptnInit project:"${params.Project}", service:"${params.cartsService}", stage:"${params.Stage}" 
+
+					  def scriptStartTime = getNow().toString()
+
 				      //set a label
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
+					  labels.put('version', "${env.BUILD_NUMBER}")
+        			  labels.put('evaltime', "${scriptStartTime}")
         			  // Deploy via keptn
         			  def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.cartsImage}:${params.Release}", labels : labels
         			  String keptn_bridge = env.KEPTN_BRIDGE
@@ -45,8 +70,11 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver ${params.cartsdbImage}"			   
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.cartsdbService}", stage:"${params.Stage}"
-        			    def labels=[:]
-                        labels.put('TriggeredBy', 'Jenkins') 
+        			    def scriptStartTime = getNow().toString()
+						def labels=[:]
+                        labels.put('TriggeredBy', 'Jenkins')
+					    labels.put('version', "${env.BUILD_NUMBER}")
+        			    labels.put('evaltime', "${scriptStartTime}")						 
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.cartsdbImage}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"

@@ -1,6 +1,25 @@
 @Library('keptn-library@6.0.0-next.1')_
 import sh.keptn.Keptn
+import java.time.temporal.ChronoUnit
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 def keptn = new sh.keptn.Keptn()
+
+def getNow() {
+  //return java.time.LocalDateTime.now() ;
+  //return java.time.Instant.now().truncatedTo( ChronoUnit.MILLIS ) ;
+  
+  LocalDateTime localDateTime = LocalDateTime.now();
+  
+  ZonedDateTime zdt = ZonedDateTime.of(localDateTime, ZoneId.systemDefault());
+  
+  long date = zdt.toInstant().toEpochMilli();
+
+  return date
+}
 
 pipeline {
     agent any
@@ -33,10 +52,13 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver FrontEnd"
         			script {
 					  // Initialize the Keptn Project
-                      keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}" 
+                      keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}"
+					  def scriptStartTime = getNow().toString() 
 				      //set a label
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
+					  labels.put('version', "${env.BUILD_NUMBER}")
+        			  labels.put('evaltime', "${scriptStartTime}")					  
         			  // Deploy via keptn
         			  def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image3}", labels : labels
         			  String keptn_bridge = env.KEPTN_BRIDGE
@@ -50,8 +72,11 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver MongoDB"			   
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service1}", stage:"${params.Stage}"
+						def scriptStartTime = getNow().toString()
         			    def labels=[:]
-                        labels.put('TriggeredBy', 'Jenkins') 
+                        labels.put('TriggeredBy', 'Jenkins')
+					    labels.put('version', "${env.BUILD_NUMBER}")
+        			    labels.put('evaltime', "${scriptStartTime}")						 
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image1}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
@@ -64,8 +89,11 @@ pipeline {
        				echo "Progressive Delivery: Triggering Keptn to deliver Backend"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}"
+						def scriptStartTime = getNow().toString()
         			    def labels=[:]
-                        labels.put('TriggeredBy', 'Jenkins') 
+                        labels.put('TriggeredBy', 'Jenkins')
+						labels.put('version', "${env.BUILD_NUMBER}")
+        			    labels.put('evaltime', "${scriptStartTime}") 
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image2}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
@@ -78,8 +106,11 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver www"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}"
+						def scriptStartTime = getNow().toString()
         				def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
+					    labels.put('version', "${env.BUILD_NUMBER}")
+        			    labels.put('evaltime', "${scriptStartTime}")						
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image4}", labels : labels 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
@@ -92,8 +123,11 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver angular"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}", stage:"${params.Stage}"
+						def scriptStartTime = getNow().toString()
         				def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
+					    labels.put('version', "${env.BUILD_NUMBER}")
+        			    labels.put('evaltime', "${scriptStartTime}")						
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.Image5}", labels : labels 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
