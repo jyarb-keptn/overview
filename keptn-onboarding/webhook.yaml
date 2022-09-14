@@ -1,0 +1,34 @@
+apiVersion: webhookconfig.keptn.sh/v1alpha1
+kind: WebhookConfig
+metadata:
+  name: webhook-configuration
+spec:
+  webhooks:
+    - type: sh.keptn.event.deployment.finished
+      requests:
+        - >-
+          curl --request POST --data '{"channel":"keptnorders","username":"keptn","blocks":[{"type":"section","text":{"type":"mrkdwn","text":"*Keptn Deployment finished:* {{.data.result}}"}},{"type":"section","text":{"type":"mrkdwn","text":"*Project:* {{.data.project}}\n*Stage:* {{.data.stage}}\n*Service:* {{.data.service}}\n*URL:* {{index .data.deployment.deploymentURIsPublic 0}}\n*Details:* {{.env.secret_slackwebhook_bridgeUrl}}/trace/{{.shkeptncontext}}"}}]}' https://hooks.slack.com/services/{{.env.secret_slackwebhook_token}}
+      envFrom:
+        - name: secret_slackwebhook_token
+          secretRef:
+            name: slack-webhook
+            key: token
+        - name: secret_slackwebhook_bridgeUrl
+          secretRef:
+            name: slack-webhook
+            key: bridgeUrl
+      subscriptionID: 048965bc-a70a-4381-9c46-00bb1934d1e6
+      sendFinished: false
+      sendStarted: false
+    - type: sh.keptn.event.evaluation.finished
+      requests:
+        - >-
+          curl --header 'Content-type: application/json' --header 'Authorization: Api-Token {{.env.secret_dynatracemetricingest_apitoken}}' --request POST --data '{    "type": "test",    "series": [        {            "timeseriesId": "custom:keptnordersreleasevalidationscore",            "dimensions": {                "Service": "{{.data.service}}",                "Stage": "{{.data.stage}}",                "Project": "{{.data.project}}",                "Version": "{{.data.labels.version}}",                "BuildId": "{{.data.labels.buildId}}",                "Result": "{{.data.evaluation.result}}",                "Score": {{.data.evaluation.score}},                "EvaluationTime": "{{.time}}"            },            "dataPoints": [                [ {{.data.labels.evaltime}}, {{.data.evaluation.score}} ]            ]        }    ]}' https://ibg73613.live.dynatrace.com/api/v1/entity/infrastructure/custom/custom:keptnordersreleasevalidationscore
+      envFrom:
+        - name: secret_dynatracemetricingest_apitoken
+          secretRef:
+            name: dynatrace-metric-ingest
+            key: api-token
+      subscriptionID: 78ae17ee-ae41-4713-9fca-e53eae1f2136
+      sendFinished: false
+      sendStarted: false
