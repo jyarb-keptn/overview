@@ -39,13 +39,14 @@ pipeline {
          string(defaultValue: 'dtdemos/dt-orders-order-service', description: 'Order Service with Tag [:1.0.0,:2.0.0,:3.0.0,:4.0.0]', name: 'orderImage', trim: false)
          choice(name: 'OrderRelease', choices: ["1.0.0", "2.0.0", "3.0.0", "4.0.0"], description: 'Order Service with Tag [:1.0.0,:2.0.0,:3.0.0,:4.0.0]')
          string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false)
-         string(defaultValue: 'dtdemos/dt-orders-customer-service', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
+         string(defaultValue: 'dtdemos/dt-orders-customer-service', description: 'Customer Service with Tag [:1.0.0,:2.0.0:3.0.0]', name: 'customerImage', trim: false)
          choice(name: 'CustomerRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Customer Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
          string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false)
-         string(defaultValue: 'dtdemos/dt-orders-frontend:1.0.0', description: 'Tag:1.0.0', name: 'frontendImage', trim: false)
+         string(defaultValue: 'dtdemos/dt-orders-frontend', description: 'Frontend Service with Tag [:1.0.0,:2.0.0:3.0.0]', name: 'frontendImage', trim: false)
 		 choice(name: 'FrontendRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Frontend Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
          string(defaultValue: 'dtdemos/dt-orders-catalog-service:1.0.0', description: 'Tag:1.0.0', name: 'catalogImage', trim: false)
+		 choice(name: 'CatalogRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Catalog Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
 	}
@@ -84,7 +85,7 @@ pipeline {
 					  labels.put('buildId', "${buildid}")
         			  labels.put('evaltime', "${scriptStartTime}")					  
         			  // Deploy via keptn
-        			  def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.frontendImage}", labels : labels
+        			  def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.frontendImage}:${params.FrontendRelease}", labels : labels
         			  String keptn_bridge = env.KEPTN_BRIDGE
         			  echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
@@ -97,9 +98,11 @@ pipeline {
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
+						def buildid = getNowID().toString()
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
-						labels.put('version', "${env.BUILD_NUMBER}")
+						labels.put('version', "${params.OrderRelease}")
+						labels.put('buildId', "${buildid}")
         			    labels.put('evaltime', "${scriptStartTime}") 
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.orderImage}:${params.OrderRelease}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
@@ -114,9 +117,11 @@ pipeline {
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
+						def buildid = getNowID().toString()
         			    def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
-						labels.put('version', "${env.BUILD_NUMBER}")
+						labels.put('version', "${params.CustomerRelease}")
+						labels.put('buildId', "${buildid}")
         			    labels.put('evaltime', "${scriptStartTime}") 
         				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.customerImage}:${params.CustomerRelease}", labels : labels
         				String keptn_bridge = env.KEPTN_BRIDGE
@@ -131,11 +136,13 @@ pipeline {
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
+						def buildid = getNowID().toString()
         				def labels=[:]
                         labels.put('TriggeredBy', 'Jenkins')
-						labels.put('version', "${env.BUILD_NUMBER}")
+						labels.put('version', "${params.CatalogRelease}")
+						labels.put('buildId', "${buildid}")
         			    labels.put('evaltime', "${scriptStartTime}")
-        				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.catalogImage}", labels : labels 
+        				def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.catalogImage}:${params.CatalogRelease}", labels : labels 
         				String keptn_bridge = env.KEPTN_BRIDGE
         				echo "Open Keptns Bridge: ${keptn_bridge}/trace/${keptnContext}"
         			}
