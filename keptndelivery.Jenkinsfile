@@ -40,9 +40,10 @@ pipeline {
          choice(name: 'OrderRelease', choices: ["1.0.0", "2.0.0", "3.0.0", "4.0.0"], description: 'Order Service with Tag [:1.0.0,:2.0.0,:3.0.0,:4.0.0]')
          string(defaultValue: 'customer', description: 'Customer Service', name: 'customerService', trim: false)
          string(defaultValue: 'dtdemos/dt-orders-customer-service', description: 'Customer Service with Tag [:1,:2:3]', name: 'customerImage', trim: false)
-         choice(name: 'CustomerRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Customer Service with Tag [:1,:2,:3]')
+         choice(name: 'CustomerRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Customer Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
          string(defaultValue: 'frontend', description: 'FrontEnd Service', name: 'frontendService', trim: false)
          string(defaultValue: 'dtdemos/dt-orders-frontend:1.0.0', description: 'Tag:1.0.0', name: 'frontendImage', trim: false)
+		 choice(name: 'FrontendRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Frontend Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
          string(defaultValue: 'dtdemos/dt-orders-catalog-service:1.0.0', description: 'Tag:1.0.0', name: 'catalogImage', trim: false)
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
@@ -79,7 +80,8 @@ pipeline {
 					  //set a label
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
-					  labels.put('version', "${buildid}")
+					  labels.put('version', "${params.FrontendRelease}")
+					  labels.put('buildId', "${buildid}")
         			  labels.put('evaltime', "${scriptStartTime}")					  
         			  // Deploy via keptn
         			  def keptnContext = keptn.sendDeliveryTriggeredEvent image:"${params.frontendImage}", labels : labels
