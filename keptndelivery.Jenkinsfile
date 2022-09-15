@@ -19,7 +19,7 @@ def getNow() {
 }
 
 def getNowID() {
-  DateTimeFormatter formatter = DateTimeFormatter.ofPattern(mmddHHMM);
+  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mmddHHMM");
   ZonedDateTime zdt = ZonedDateTime.now();
   String formattedZdt = zdt.format(formatter);
   return formattedZdt
