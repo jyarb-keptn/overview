@@ -59,7 +59,7 @@ pipeline {
 				      //set a label
 				      def labels=[:]
                       labels.put('TriggeredBy', 'Jenkins')
-					  labels.put('version', "${params.Release}}")
+					  labels.put('version', "${params.Release}")
 					  labels.put('buildId', "${buildid}")
         			  labels.put('evaltime', "${scriptStartTime}")
         			  // Deploy via keptn
