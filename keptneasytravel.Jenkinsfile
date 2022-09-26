@@ -57,7 +57,7 @@ pipeline {
         			echo "Progressive Delivery: Triggering Keptn to deliver FrontEnd"
         			script {
 					  // Initialize the Keptn Project
-                      keptn.keptnInit project:"${params.Project}", service:"${params.Service3}:${params.Release}", stage:"${params.Stage}"
+                      keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}"
 					  def scriptStartTime = getNow().toString()
 					  def buildid = getNowID().toString() 
 				      //set a label
@@ -78,7 +78,7 @@ pipeline {
     			 steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver MongoDB"			   
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service1}:${params.Release}", stage:"${params.Stage}"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service1}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
 						def buildid = getNowID().toString()
         			    def labels=[:]
@@ -97,7 +97,7 @@ pipeline {
     		     steps {
        				echo "Progressive Delivery: Triggering Keptn to deliver Backend"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}:${params.Release}", stage:"${params.Stage}"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
 						def buildid = getNowID().toString()
         			    def labels=[:]
@@ -116,7 +116,7 @@ pipeline {
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver www"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}:${params.Release}", stage:"${params.Stage}"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
 						def buildid = getNowID().toString()
         				def labels=[:]
@@ -135,7 +135,7 @@ pipeline {
     		     steps {
         			echo "Progressive Delivery: Triggering Keptn to deliver angular"
         			script {
-        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}:${params.Release}", stage:"${params.Stage}"
+        			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
 						def buildid = getNowID().toString()
         				def labels=[:]
