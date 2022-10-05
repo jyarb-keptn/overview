@@ -25,16 +25,16 @@ spec:
         - name: ET_APM_SERVER_DEFAULT
           value: APM
         - name: ET_WWW_URL
-          value: http://easytravel-frontend.easytravel-staging.domain.placeholder:80     
+          value: http://easytravel-www.easytravel-staging.domain.placeholder:80     
         - name: ET_FRONTEND_URL
-          value: http://easytravel-frontend.easytravel-staging.domain.placeholder:80
+          value: http://easytravel-www.easytravel-staging.domain.placeholder:80
         - name: ET_BACKEND_URL
           value: http://easytravel-backend.easytravel-staging.domain.placeholder:80          
         - name: ET_PROBLEMS
-          value: "DatabaseCleanup LoginProblems MobileErrors"
+          value: "DatabaseCleanup,LoginProblems,MobileErrors"
         - name: ET_PROBLEMS_DELAY
-          value: "0"
+          value: "7500"
         - name: ET_VISIT_NUMBER
           value: "5"          
-        image: dynatrace/easytravel-loadgen:2.0.0.3256
+        image: dynatrace/easytravel-loadgen:2.0.0.3408
         name: easytravel-loadgen
