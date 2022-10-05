@@ -37,6 +37,6 @@ spec:
         - name: ET_PROBLEMS_DELAY
           value: "0"
         - name: ET_VISIT_NUMBER
-          value: "5"          
+          value: "15"          
         image: dynatrace/easytravel-loadgen:2.0.0.3408
         name: easytravel-loadgen-prod        
