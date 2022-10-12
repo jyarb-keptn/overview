@@ -45,7 +45,7 @@ pipeline {
          string(defaultValue: 'dynatrace/easytravel-nginx', description: 'easytravel nginx', name: 'Image4', trim: false)
          string(defaultValue: 'easytravel-angular', description: 'easytravel nginx service', name: 'Service5', trim: false)
          string(defaultValue: 'dynatrace/easytravel-angular-frontend', description: 'easytravel amgular', name: 'Image5', trim: false)
-		 choice(name: 'Release', choices: ["2.0.0.3356", "2.0.0.3349", "2.0.0.3322"], description: 'EasyTravel Version')
+		 choice(name: 'Release', choices: ["2.0.0.3356", "2.0.0.3349", "2.0.0.3322","2.0.0.3408"], description: 'EasyTravel Version')
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "easytravelMongoDB", "easytravel-backend", "easytravel-frontend", "easytravel-www", "easytravel-angular"])
     }
