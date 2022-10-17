@@ -62,8 +62,11 @@ pipeline {
 
 	triggers {
           parameterizedCron('''
-              H */8 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
-              H */8 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
+              H */4 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
+              H */4 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
+			  H */8 * * * %OrderRelease=2.0.0;DEPLOY_TO=order
+			  H */8 * * * %CatalogRelease=2.0.0;DEPLOY_TO=catalog
+			  H */8 * * * %FrontendRelease=2.0.0;DEPLOY_TO=frontend
         ''')
 	}
 
