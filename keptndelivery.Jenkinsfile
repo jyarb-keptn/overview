@@ -50,26 +50,22 @@ pipeline {
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
 	}
-	
+
         options {
            buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         }
-	
-	//    H */12 * * * %DEPLOY_TO=frontend
-        //    H/15 */8 * * * %DEPLOY_TO=catalog
-	//    H */12 * * * %OrderRelease=2.0.0;DEPLOY_TO=order
-        //    H 0 * * * %OrderRelease=1.0.0;CustomerRelease=1.0.0;DEPLOY_TO=all
 
 	triggers {
           parameterizedCron('''
-              H */4 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
-              30 */4 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
-			  0 */8 * * * %OrderRelease=2.0.0;DEPLOY_TO=order
-			  30 */8 * * * %CatalogRelease=2.0.0;DEPLOY_TO=catalog
-			  0 */12 * * * %FrontendRelease=2.0.0;DEPLOY_TO=frontend
+              H */3 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
+			  H */4 * * * %CatalogRelease=1.0.0;DEPLOY_TO=catalog
+              H */6 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
+			  H */6 * * * %FrontendRelease=1.0.0;DEPLOY_TO=frontend
+			  H */8 * * * %OrderRelease=2.0.0;DEPLOY_TO=order
+			  H */8 * * * %CatalogRelease=2.0.0;DEPLOY_TO=catalog
+			  H */12 * * * %FrontendRelease=2.0.0;DEPLOY_TO=frontend
         ''')
 	}
-
 
     stages {        
         	stage('Trigger FrontendService') {
