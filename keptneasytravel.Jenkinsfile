@@ -54,7 +54,7 @@ pipeline {
         	stage('Trigger frontend') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-frontend" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver FrontEnd"
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image3}:${params.Release}"
         			script {
 					  // Initialize the Keptn Project
                       keptn.keptnInit project:"${params.Project}", service:"${params.Service3}", stage:"${params.Stage}"
@@ -95,7 +95,7 @@ pipeline {
     		stage('Trigger backend') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-backend" } }
     		     steps {
-       				echo "Progressive Delivery: Triggering Keptn to deliver Backend"
+       				echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image2}:${params.Release}"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service2}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
@@ -114,7 +114,7 @@ pipeline {
     		stage('Trigger www') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-www" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver www"
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image4}:${params.Release}"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service4}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
@@ -133,7 +133,7 @@ pipeline {
 		stage('Trigger angular') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "easytravel-angular" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver angular"
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.Image5}:${params.Release}"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.Service5}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
