@@ -45,7 +45,7 @@ pipeline {
          string(defaultValue: 'dtdemos/dt-orders-frontend', description: 'Frontend Service with Tag [:1.0.0,:2.0.0:3.0.0]', name: 'frontendImage', trim: false)
 		 choice(name: 'FrontendRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Frontend Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
          string(defaultValue: 'catalog', description: 'Catalog Service', name: 'catalogService', trim: false)
-         string(defaultValue: 'dtdemos/dt-orders-catalog-service:1.0.0', description: 'Tag:1.0.0', name: 'catalogImage', trim: false)
+         string(defaultValue: 'dtdemos/dt-orders-catalog-service', description: 'Tag:1.0.0', name: 'catalogImage', trim: false)
 		 choice(name: 'CatalogRelease', choices: ["1.0.0", "2.0.0", "3.0.0"], description: 'Catalog Service with Tag [:1.0.0,:2.0.0,:3.0.0]')
          string(defaultValue: '20', description: 'How many minutes to wait until Keptn is done? 0 to not wait', name: 'WaitForResult')
          choice(name: 'DEPLOY_TO', choices: ["none", "all", "frontend", "order", "catalog", "customer"])
