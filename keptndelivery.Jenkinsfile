@@ -71,7 +71,7 @@ pipeline {
         	stage('Trigger FrontendService') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "frontend" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}"
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.frontendImage}:${params.FrontendRelease}"
         			script {
 					  // Initialize the Keptn Project
                       keptn.keptnInit project:"${params.Project}", service:"${params.frontendService}", stage:"${params.Stage}"
@@ -93,7 +93,7 @@ pipeline {
     		stage('Trigger orderService') {
     			when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "order" } }
     			 steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}"			   
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.orderImage}:${params.OrderRelease}"			   
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.orderService}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
@@ -112,7 +112,7 @@ pipeline {
     		stage('Trigger customerService') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "customer" } }
     		     steps {
-       				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}"
+       				echo "Progressive Delivery: Triggering Keptn to deliver ${params.customerImage}:${params.CustomerRelease}"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.customerService}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
@@ -131,7 +131,7 @@ pipeline {
     		stage('Trigger CatalogService') {
     		    when { expression { params.DEPLOY_TO == "all" || params.DEPLOY_TO == "catalog" } }
     		     steps {
-        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}"
+        			echo "Progressive Delivery: Triggering Keptn to deliver ${params.catalogImage}:${params.CatalogRelease}"
         			script {
         			    keptn.keptnInit project:"${params.Project}", service:"${params.catalogService}", stage:"${params.Stage}"
 						def scriptStartTime = getNow().toString()
