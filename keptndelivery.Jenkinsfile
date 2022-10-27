@@ -60,10 +60,7 @@ pipeline {
               H */3 * * * %CustomerRelease=1.0.0;DEPLOY_TO=customer
 			  H */4 * * * %CatalogRelease=1.0.0;DEPLOY_TO=catalog
               H */6 * * * %OrderRelease=1.0.0;DEPLOY_TO=order
-			  H */6 * * * %FrontendRelease=1.0.0;DEPLOY_TO=frontend
-			  H */8 * * * %OrderRelease=2.0.0;DEPLOY_TO=order
-			  H */8 * * * %CatalogRelease=2.0.0;DEPLOY_TO=catalog
-			  H */12 * * * %FrontendRelease=2.0.0;DEPLOY_TO=frontend
+			  H */8 * * * %FrontendRelease=1.0.0;DEPLOY_TO=frontend
         ''')
 	}
 
